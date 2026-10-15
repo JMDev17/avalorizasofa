@@ -1,0 +1,71 @@
+# ---------------------------------------------------------------
+# A Valoriza Sofá — Apache (Hostinger). Gerado por build.js
+# ---------------------------------------------------------------
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# 1) HTTPS + host canônico (www.avalorizasofa.com.br)
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^avalorizasofa\.com\.br$ [NC]
+RewriteRule ^ https://www.avalorizasofa.com.br%{REQUEST_URI} [L,R=301,NE]
+
+# 2) Remove "index.html" das URLs
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [L,R=301]
+
+# 3) Calculadora antiga → configurador (a query string, ex. ?servico=sofa, é preservada)
+RewriteRule ^calculadora/?$ /monte-seu-atendimento/ [L,R=301]
+
+# 3b) Consolidação: serviços automotivos específicos → página principal
+RewriteRule ^servicos/higienizacao-de-bancos-automotivos/?$ /servicos/higienizacao-automotiva/#bancos [L,R=301,NE]
+RewriteRule ^servicos/higienizacao-de-teto-automotivo/?$ /servicos/higienizacao-automotiva/#teto [L,R=301,NE]
+RewriteRule ^servicos/higienizacao-de-carpete-automotivo/?$ /servicos/higienizacao-automotiva/#carpete [L,R=301,NE]
+
+# 4) Barra final nas pastas (URLs sem extensão)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*[^/])$ /$1/ [L,R=301]
+</IfModule>
+
+# Compressão
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/xml application/xml text/plain
+</IfModule>
+
+# Cache: assets versionados (?v=) por 1 ano; HTML sempre revalidado
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType application/xml "access plus 1 day"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  <FilesMatch "\.(woff2|css|js|svg|webp|avif|jpe?g|png)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+AddType font/woff2 .woff2
+AddType image/avif .avif
+AddType image/webp .webp
