@@ -1,0 +1,9 @@
+{
+  "name": "avalorizasofa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site estático da A Valoriza Sofá (HTML, CSS e JS puros).",
+  "scripts": {
+    "build": "echo \"Site estatico: nada para compilar\""
+  }
+}

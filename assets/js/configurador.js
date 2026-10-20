@@ -236,7 +236,7 @@
   }
 
   function mensagem() {
-    var L = ['Olá, A Valoriza Sofá! Gostaria de solicitar um atendimento:', ''];
+    var L = ['Olá, A Valoriza Sofá! Vim pelo site e gostaria de solicitar um atendimento:', ''];
     st.itens.forEach(function (it, i) {
       L.push('*' + (st.itens.length > 1 ? (i + 1) + '. ' : '') + SERVICOS[it.servico].nome + '*');
       linhas(it).forEach(function (l) { L.push('• ' + l[0] + ': ' + l[1]); });

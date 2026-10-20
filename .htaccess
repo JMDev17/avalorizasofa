@@ -2,6 +2,11 @@
 # A Valoriza Sofá — Apache (Hostinger). Gerado por build.js
 # ---------------------------------------------------------------
 Options -Indexes
+
+# Arquivo usado só na importação do repositório; não precisa ser público
+<Files "package.json">
+  Require all denied
+</Files>
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 AddDefaultCharset utf-8

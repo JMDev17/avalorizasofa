@@ -178,7 +178,7 @@
       e.preventDefault();
       var d = new FormData(mini);
       var linhas = [
-        'Olá, A Valoriza Sofá! Gostaria de um orçamento.',
+        'Olá, A Valoriza Sofá! Vim pelo site e gostaria de um orçamento.',
         '',
         '*Nome:* ' + d.get('nome'),
         '*Cidade:* ' + d.get('cidade') + (d.get('bairro') ? ', bairro ' + d.get('bairro') : ''),
